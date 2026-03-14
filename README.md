@@ -43,4 +43,4 @@ The plugin logs every entry that it deletes. This means that you can check the l
 ## Supported Media Extensions
 
 The plugin checks for the following extensions to verify if a media file exists:
-`.mkv`, `.mp4`, `.avi`, `.mov`, `.wmv`, `.m4v`, `.ts`, `.mts`, `.m2ts`, `.mpg`, `.mpeg`, `.webm`, `.flv`, `.3gp`, `.ogv`
+`.3gp`, `.asf`, `.avi`, `.divx`, `.flv`, `.hevc`, `.m2ts`, `.m4v`, `.mkv`, `.mov`, `.mp4`, `.mpeg`, `.mpg`, `.mts`, `.ogg`, `.ogv`, `.rm`, `.rmvb`, `.ts`, `.webm`, `.wmv`

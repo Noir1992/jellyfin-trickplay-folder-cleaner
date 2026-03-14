@@ -21,21 +21,27 @@ public class CleanTrickplayTask : IScheduledTask
     private readonly ILogger<CleanTrickplayTask> _logger;
     private readonly string[] _mediaExtensions =
     [
-        ".mkv",
-        ".mp4",
-        ".avi",
-        ".mov",
-        ".wmv",
-        ".m4v",
-        ".ts",
-        ".mts",
-        ".m2ts",
-        ".mpg",
-        ".mpeg",
-        ".webm",
-        ".flv",
         ".3gp",
-        ".ogv"
+        ".asf",
+        ".avi",
+        ".divx",
+        ".flv",
+        ".hevc",
+        ".m2ts",
+        ".m4v",
+        ".mkv",
+        ".mov",
+        ".mp4",
+        ".mpeg",
+        ".mpg",
+        ".mts",
+        ".ogg",
+        ".ogv",
+        ".rm",
+        ".rmvb",
+        ".ts",
+        ".webm",
+        ".wmv"
     ];
 
     /// <summary>

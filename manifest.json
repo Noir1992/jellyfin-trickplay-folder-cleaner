@@ -8,6 +8,14 @@
     "category": "Maintenance",
     "versions": [
       {
+        "version": "1.0.1",
+        "changelog": "Extend the media file extensions list",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "",
+        "checksum": "",
+        "timestamp": ""
+      },
+      {
         "version": "1.0.0",
         "changelog": "Initial release",
         "targetAbi": "10.11.0.0",
