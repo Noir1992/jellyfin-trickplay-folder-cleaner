@@ -33,6 +33,13 @@ After that, go back, install the plugin and restart Jellyfin.
 3. Look for **Trickplay Folder Cleaner** under the **Maintenance** category.
 4. You can trigger the task manually by clicking the "Play" button or configure the trigger schedule as needed.
 
+## Check if it worked
+
+The plugin logs every entry that it deletes. This means that you can check the logs to see what folders it deleted. The following logs can be found:
+- Starting trickplay folder cleanup.
+- Deleting orphaned trickplay folder: "<full_path_to_folder>.trickplay"
+- Trickplay folder cleanup finished. Deleted \<NUMBER> folders.
+
 ## Supported Media Extensions
 
 The plugin checks for the following extensions to verify if a media file exists:
