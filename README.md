@@ -30,7 +30,7 @@ After that, go back, install the plugin and restart Jellyfin.
 
 1. Navigate to the **Dashboard** in Jellyfin.
 2. Go to **Scheduled Tasks**.
-3. Look for **Trickplay Folder Cleaner** under the **Maintenance** category.
+3. Look for the **Trickplay Folder Cleaner** category.
 4. You can trigger the task manually by clicking the "Play" button or configure the trigger schedule as needed.
 
 ## Check if it worked
