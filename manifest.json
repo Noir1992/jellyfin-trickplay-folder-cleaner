@@ -1,0 +1,20 @@
+[
+  {
+    "guid": "2ec36e40-b27f-4f78-a0d8-6701dcd9bf0e",
+    "name": "Trickplay Folder Cleaner",
+    "description": "Deletes .trickplay folders that no longer have a corresponding media file.",
+    "overview": "Removes orphaned .trickplay folders.",
+    "owner": "Noir1992",
+    "category": "Maintenance",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "changelog": "Initial release",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "",
+        "checksum": "",
+        "timestamp": ""
+      }
+    ]
+  }
+]
