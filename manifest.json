@@ -11,9 +11,9 @@
         "version": "1.0.1",
         "changelog": "Extend the media file extensions list",
         "targetAbi": "10.11.0.0",
-        "sourceUrl": "",
-        "checksum": "",
-        "timestamp": ""
+        "sourceUrl": "https://github.com/Noir1992/jellyfin-trickplay-folder-cleaner/releases/download/1.0.1/TrickplayFolderCleaner_1.0.1.zip",
+        "checksum": "d5b623f446b12d99956250bedb214068",
+        "timestamp": "2026-03-14T22:45:20Z"
       },
       {
         "version": "1.0.0",
