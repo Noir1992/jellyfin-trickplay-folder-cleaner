@@ -54,7 +54,7 @@ jobs:
     - name: Generate checksum
       id: checksum
       run: |
-        sha256sum ${PLUGIN_NAME}_${VERSION}.zip | cut -d ' ' -f1 > checksum.txt
+        md5sum ${PLUGIN_NAME}_${VERSION}.zip | cut -d ' ' -f1 > checksum.txt
         echo "CHECKSUM=$(cat checksum.txt)" >> $GITHUB_ENV
 
     - name: Update manifest metadata

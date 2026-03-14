@@ -11,9 +11,9 @@
         "version": "1.0.0",
         "changelog": "Initial release",
         "targetAbi": "10.11.0.0",
-        "sourceUrl": "https://github.com/Noir1992/jellyfin-trickplay-folder-cleaner/releases/download/1.0.0/TrickplayFolderCleaner_1.0.0.zip",
-        "checksum": "d864b15d031a112ab9001d1d506afdc7a7b119f007364271c0f1bf52deaedf14",
-        "timestamp": "2026-03-14T21:56:37Z"
+        "sourceUrl": "",
+        "checksum": "",
+        "timestamp": ""
       }
     ]
   }
