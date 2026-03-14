@@ -27,20 +27,35 @@ jobs:
       with:
         dotnet-version: 9.0.x
 
-    - name: Install jq
-      run: sudo apt-get update && sudo apt-get install -y jq
-    
-    - name: Read version from manifest
-      id: version
+    - name: Install jq and yq
+      run: |
+        sudo apt-get update && sudo apt-get install -y jq
+        sudo wget -qO /usr/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+        sudo chmod +x /usr/bin/yq
+
+    - name: Read version and changelog from manifest
       run: |
         VERSION=$(jq -r '.[0].versions[0].version' manifest.json)
+        CHANGELOG=$(jq -r '.[0].versions[0].changelog' manifest.json)
+        
         echo "VERSION=$VERSION" >> $GITHUB_ENV
+        
+        echo "CHANGELOG<<EOF" >> $GITHUB_ENV
+        echo "$CHANGELOG" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
 
     - name: Restore
       run: dotnet restore
 
     - name: Publish plugin
-      run: dotnet publish Jellyfin.Plugin.TrickplayFolderCleaner/Jellyfin.Plugin.TrickplayFolderCleaner.csproj -c Release -o ./publish
+      run: |
+        dotnet publish Jellyfin.Plugin.TrickplayFolderCleaner/Jellyfin.Plugin.TrickplayFolderCleaner.csproj \
+          -c Release \
+          -o ./publish \
+          -p:Version=${VERSION} \
+          -p:AssemblyVersion=${VERSION}.0 \
+          -p:FileVersion=${VERSION}.0 \
+          -p:InformationalVersion=${VERSION}
 
     - name: Create package
       run: |
@@ -71,11 +86,25 @@ jobs:
 
         mv manifest.tmp manifest.json
 
-    - name: Commit updated manifest
+    - name: Update build.yaml
+      run: |
+        yq eval -i '
+          .version = strenv(VERSION) |
+          .targetAbi = strenv(TARGET_ABI) |
+          .framework = "net9.0" |
+          .changelog = strenv(CHANGELOG)
+        ' build.yaml
+
+    - name: Print build.yaml
+      run: |
+        echo "Updated build.yaml:"
+        cat build.yaml
+
+    - name: Commit updated files
       run: |
         git config user.name "github-actions"
         git config user.email "actions@github.com"
-        git add manifest.json
+        git add manifest.json build.yaml
         git commit -m "Update metadata for $VERSION" || echo "No changes"
         git push origin HEAD:main
 

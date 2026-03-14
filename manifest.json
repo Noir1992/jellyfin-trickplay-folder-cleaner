@@ -5,8 +5,16 @@
     "description": "Deletes .trickplay folders that no longer have a corresponding media file.",
     "overview": "Removes orphaned .trickplay folders.",
     "owner": "Noir1992",
-    "category": "Maintenance",
+    "category": "General",
     "versions": [
+      {
+        "version": "1.0.2",
+        "changelog": "Fixed versioning",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "",
+        "checksum": "",
+        "timestamp": ""
+      },
       {
         "version": "1.0.1",
         "changelog": "Extend the media file extensions list",

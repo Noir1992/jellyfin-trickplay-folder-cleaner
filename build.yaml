@@ -1,14 +1,14 @@
 ---
 name: "Trickplay Folder Cleaner"
 guid: "2ec36e40-b27f-4f78-a0d8-6701dcd9bf0e"
-version: "1.0.5"
+version: "1.0.1"
 targetAbi: "10.11.0.0"
 framework: "net9.0"
 overview: "Removes orphaned .trickplay folders."
 description: >
   A Jellyfin plugin that automatically cleans up orphaned .trickplay folders.
 
-category: "Maintenance"
+category: "General"
 owner: "Noir1992"
 artifacts:
   - "TrickplayFolderCleaner.dll"
