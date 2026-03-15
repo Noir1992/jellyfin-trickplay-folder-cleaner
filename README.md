@@ -30,7 +30,9 @@ After that, go back, install the plugin and restart Jellyfin.
 
 1. Navigate to the **Dashboard** in Jellyfin.
 2. Go to **Scheduled Tasks**.
-3. Look for the **Trickplay Folder Cleaner** category.
+3. Look for the **Trickplay Folder Cleaner** category. There are 2 tasks:
+   1. Trickplay Folder Cleaner <-- This task will delete the orphaned folders. 
+   2. Trickplay Folder Cleaner (Dry Run) <-- This task will only log the folders that would be deleted.
 4. You can trigger the task manually by clicking the "Play" button or configure the trigger schedule as needed.
 
 ## Check if it worked
@@ -39,6 +41,11 @@ The plugin logs every entry that it deletes. This means that you can check the l
 - Starting trickplay folder cleanup.
 - Deleting orphaned trickplay folder: "<full_path_to_folder>.trickplay"
 - Trickplay folder cleanup finished. Deleted \<NUMBER> folders.
+
+The dry run logs looks a little different:
+- Starting trickplay folder cleanup (Dry Run). No folders will be deleted.
+- [Dry Run] Would delete orphaned trickplay folder: "<full_path_to_folder>.trickplay"
+- Trickplay folder cleanup (Dry Run) finished. Would have deleted \<NUMBER> folders.
 
 ## Supported Media Extensions
 
