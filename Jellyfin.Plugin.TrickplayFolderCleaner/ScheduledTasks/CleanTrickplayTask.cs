@@ -58,21 +58,40 @@ public class CleanTrickplayTask : IScheduledTask
     }
 
     /// <inheritdoc />
-    public string Name => "Trickplay Folder Cleaner";
+    public virtual string Name => "Trickplay Folder Cleaner";
 
     /// <inheritdoc />
-    public string Key => "TrickplayFolderCleaner";
+    public virtual string Key => "TrickplayFolderCleaner";
 
     /// <inheritdoc />
-    public string Description => "Deletes .trickplay folders that no longer have a corresponding media file.";
+    public virtual string Description => "Deletes .trickplay folders that no longer have a corresponding media file.";
 
     /// <inheritdoc />
     public string Category => "Trickplay Folder Cleaner";
 
     /// <inheritdoc />
-    public Task ExecuteAsync(IProgress<double> progress, CancellationToken cancellationToken)
+    public virtual async Task ExecuteAsync(IProgress<double> progress, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Starting trickplay folder cleanup.");
+        await ExecuteInternalAsync(false, progress, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Executes the task internally.
+    /// </summary>
+    /// <param name="dryRun">A value indicating whether to perform a dry run.</param>
+    /// <param name="progress">The progress.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the operation.</returns>
+    protected Task ExecuteInternalAsync(bool dryRun, IProgress<double> progress, CancellationToken cancellationToken)
+    {
+        if (dryRun)
+        {
+            _logger.LogInformation("Starting trickplay folder cleanup (Dry Run). No folders will be deleted.");
+        }
+        else
+        {
+            _logger.LogInformation("Starting trickplay folder cleanup.");
+        }
 
         var libraryFolders = _libraryManager.GetVirtualFolders()
             .SelectMany(f => f.Locations)
@@ -84,14 +103,22 @@ public class CleanTrickplayTask : IScheduledTask
         foreach (var folder in libraryFolders.TakeWhile(_ => !cancellationToken.IsCancellationRequested))
         {
             _logger.LogDebug("Scanning library folder: {Folder}", folder);
-            totalDeleted += CleanDirectory(folder, cancellationToken);
+            totalDeleted += CleanDirectory(folder, dryRun, cancellationToken);
         }
 
-        _logger.LogInformation("Trickplay folder cleanup finished. Deleted {Count} folders.", totalDeleted);
+        if (dryRun)
+        {
+            _logger.LogInformation("Trickplay folder cleanup (Dry Run) finished. Would have deleted {Count} folders.", totalDeleted);
+        }
+        else
+        {
+            _logger.LogInformation("Trickplay folder cleanup finished. Deleted {Count} folders.", totalDeleted);
+        }
+
         return Task.CompletedTask;
     }
 
-    private int CleanDirectory(string path, CancellationToken cancellationToken)
+    private int CleanDirectory(string path, bool dryRun, CancellationToken cancellationToken)
     {
         int deletedCount = 0;
         try
@@ -132,15 +159,23 @@ public class CleanTrickplayTask : IScheduledTask
                     continue;
                 }
 
-                _logger.LogInformation("Deleting orphaned trickplay folder: {Path}", dir.FullName);
-                try
+                if (dryRun)
                 {
-                    Directory.Delete(dir.FullName, true);
+                    _logger.LogInformation("[Dry Run] Would delete orphaned trickplay folder: {Path}", dir.FullName);
                     deletedCount++;
                 }
-                catch (IOException ex)
+                else
                 {
-                    _logger.LogError(ex, "Error deleting directory {Path}", dir.FullName);
+                    _logger.LogInformation("Deleting orphaned trickplay folder: {Path}", dir.FullName);
+                    try
+                    {
+                        Directory.Delete(dir.FullName, true);
+                        deletedCount++;
+                    }
+                    catch (IOException ex)
+                    {
+                        _logger.LogError(ex, "Error deleting directory {Path}", dir.FullName);
+                    }
                 }
             }
         }
@@ -153,7 +188,7 @@ public class CleanTrickplayTask : IScheduledTask
     }
 
     /// <inheritdoc />
-    public IEnumerable<TaskTriggerInfo> GetDefaultTriggers()
+    public virtual IEnumerable<TaskTriggerInfo> GetDefaultTriggers()
     {
         return
         [

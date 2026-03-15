@@ -8,6 +8,14 @@
     "category": "General",
     "versions": [
       {
+        "version": "1.1.0",
+        "changelog": "Added dry-run task to verify what would be deleted",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "",
+        "checksum": "",
+        "timestamp": ""
+      },
+      {
         "version": "1.0.2",
         "changelog": "Fixed versioning",
         "targetAbi": "10.11.0.0",
