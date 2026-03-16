@@ -18,7 +18,7 @@ The plugin scans all configured virtual folders in your Jellyfin library. For ev
 
 ## Installation
 
-### Manual Installation
+This plugin needs at least Jellyfin version 10.11.
 
 Add this repository in Jellyfin: Plugins -> Manage Repositories -> Add Repository:
 
