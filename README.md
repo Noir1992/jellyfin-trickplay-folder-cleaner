@@ -18,11 +18,13 @@ The plugin scans all configured virtual folders in your Jellyfin library. For ev
 
 ## Installation
 
-This plugin needs at least Jellyfin version 10.11.
+> [!IMPORTANT]
+> This plugin needs at least Jellyfin version 10.11.
 
 Add this repository in Jellyfin: Plugins -> Manage Repositories -> Add Repository:
-
-> https://raw.githubusercontent.com/Noir1992/jellyfin-trickplay-folder-cleaner/main/manifest.json
+```
+https://raw.githubusercontent.com/Noir1992/jellyfin-trickplay-folder-cleaner/main/manifest.json
+```
 
 After that, go back, install the plugin and restart Jellyfin.
 
