@@ -82,7 +82,7 @@ public class CleanTrickplayTask : IScheduledTask
     /// <param name="progress">The progress.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the operation.</returns>
-    protected Task ExecuteInternalAsync(bool dryRun, IProgress<double> progress, CancellationToken cancellationToken)
+    internal Task ExecuteInternalAsync(bool dryRun, IProgress<double> progress, CancellationToken cancellationToken)
     {
         if (dryRun)
         {
