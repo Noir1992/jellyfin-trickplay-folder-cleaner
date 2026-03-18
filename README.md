@@ -51,3 +51,7 @@ The dry run logs looks a little different:
 
 The plugin checks for the following extensions to verify if a media file exists:
 `.3gp`, `.asf`, `.avi`, `.divx`, `.flv`, `.hevc`, `.m2ts`, `.m4v`, `.mkv`, `.mov`, `.mp4`, `.mpeg`, `.mpg`, `.mts`, `.ogg`, `.ogv`, `.rm`, `.rmvb`, `.ts`, `.webm`, `.wmv`
+
+## Special thanks
+[S2ciOnur](https://github.com/S2ciOnur) (Logic improvments)<br />
+[K-Money](https://github.com/K-Money) (Testing)
