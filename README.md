@@ -1,59 +1,81 @@
-# Trickplay Folder Cleaner
+# Jellyfin Cleaner
 
-A Jellyfin plugin that automatically cleans up orphaned `.trickplay` folders.
-
-## Summary
-
-When media files are deleted, moved, renamed or replaced, their associated `.trickplay` folders (used for scrubbing/preview thumbnails) are not deleted by Jellyfin and consum disk space. This plugin adds a scheduled task that scans your libraries and deletes these orphaned folders.
+A [Jellyfin](https://jellyfin.org/) plugin that provides automated cleanup tasks for your media library.
 
 ## Features
 
-- **Automated Cleanup**: Adds a maintenance task to Jellyfin's Scheduled Tasks.
-- **Safe Deletion**: Only deletes `.trickplay` folders that have no corresponding media file in the same directory.
-- **Configurable Schedule**: Defaults to running every Sunday at 2:00 AM, but can be customized in Jellyfin's task settings.
+### 🧹 Trickplay Folder Cleaner
+Automatically deletes orphaned `.trickplay` folders that no longer have a corresponding media file. This typically happens when media files are renamed, moved, or deleted while the trickplay data remains behind.
 
-## How It Works
+### 📁 Empty Media Folder Cleaner
+Automatically deletes top-level media folders whose entire directory tree contains files but absolutely **no video files**. This targets the common scenario where a movie or episode is deleted but the surrounding folder with metadata (`.nfo`), artwork (`.jpg`), subtitles (`.srt`), etc. remains as an orphaned folder.
 
-The plugin scans all configured virtual folders in your Jellyfin library. For every directory named `[filename].trickplay`, it checks for the existence of a media file named `[filename]` with a supported video extension (e.g., `.mkv`, `.mp4`, `.avi`, etc.) in the parent directory. If no matching media file is found, the `.trickplay` folder is deleted.
+**Important behaviors:**
+- **Completely empty folders are skipped** — they are often pre-created by tools like Radarr/Sonarr for upcoming/"wanted" media
+- **TV show folders are checked as a whole** — if at least one video exists anywhere in the tree (even in a deeply nested subdirectory), the entire show folder is kept untouched
+- **`.trickplay` folders are skipped** — they are handled by the Trickplay Folder Cleaner task
+
+### 🔍 Dry Run Mode
+Both cleanup tasks have a corresponding **Dry Run** variant that logs what *would* be deleted without actually deleting anything. Use these to verify the cleanup behavior before enabling the actual cleanup tasks.
+
+## Scheduled Tasks
+
+| Task | Description | Default Schedule |
+|------|-------------|-----------------|
+| **Trickplay Folder Cleaner** | Deletes orphaned `.trickplay` folders | Weekly, Sunday 2:00 AM |
+| **Trickplay Folder Cleaner (Dry Run)** | Logs orphaned `.trickplay` folders without deleting | No default trigger |
+| **Empty Media Folder Cleaner** | Deletes media folders with no video files | Weekly, Sunday 3:00 AM |
+| **Empty Media Folder Cleaner (Dry Run)** | Logs empty media folders without deleting | No default trigger |
+
+All tasks appear under the **Jellyfin Cleaner** category in the Jellyfin scheduled tasks dashboard.
+
+## Supported Video Extensions
+
+The plugin recognizes the following video file extensions:
+
+`.3g2` `.3gp` `.asf` `.avi` `.divx` `.dvr-ms` `.f4v` `.flv` `.hevc` `.img` `.iso` `.m2ts` `.m2v` `.m4v` `.mk3d` `.mkv` `.mov` `.mp4` `.mpeg` `.mpg` `.mts` `.ogg` `.ogm` `.ogv` `.rec` `.rm` `.rmvb` `.ts` `.vob` `.webm` `.wmv` `.wtv`
 
 ## Installation
 
-> [!IMPORTANT]
-> This plugin needs at least Jellyfin version 10.11.
+### From Repository (Recommended)
 
-Add this repository in Jellyfin: Plugins -> Manage Repositories -> Add Repository:
-```
-https://raw.githubusercontent.com/Noir1992/jellyfin-trickplay-folder-cleaner/main/manifest.json
-```
+1. In Jellyfin, go to **Dashboard** → **Plugins** → **Repositories**
+2. Add this repository URL:
+   ```
+   https://raw.githubusercontent.com/Noir1992/jellyfin-trickplay-folder-cleaner/main/manifest.json
+   ```
+3. Go to **Catalog** and install **Jellyfin Cleaner**
+4. Restart Jellyfin
 
-After that, go back, install the plugin and restart Jellyfin.
+### Manual Installation
+
+1. Download the latest release from the [Releases](https://github.com/Noir1992/jellyfin-trickplay-folder-cleaner/releases) page
+2. Extract the `.dll` file into your Jellyfin plugins directory (e.g., `/config/plugins/JellyfinCleaner/`)
+3. Restart Jellyfin
 
 ## Usage
 
-1. Navigate to the **Dashboard** in Jellyfin.
-2. Go to **Scheduled Tasks**.
-3. Look for the **Trickplay Folder Cleaner** category. There are 2 tasks:
-   1. Trickplay Folder Cleaner <-- This task will delete the orphaned folders. 
-   2. Trickplay Folder Cleaner (Dry Run) <-- This task will only log the folders that would be deleted.
-4. You can trigger the task manually by clicking the "Play" button or configure the trigger schedule as needed.
+1. After installation, go to **Dashboard** → **Scheduled Tasks**
+2. Look for tasks under the **Jellyfin Cleaner** category
+3. **Recommended:** Run the **Dry Run** tasks first to review what would be deleted
+4. Check the Jellyfin logs to see the results
+5. Once satisfied, enable the actual cleanup tasks or run them manually
 
-## Check if it worked
+## Building from Source
 
-The plugin logs every entry that it deletes. This means that you can check the logs to see what folders it deleted. The following logs can be found:
-- Starting trickplay folder cleanup.
-- Deleting orphaned trickplay folder: "<full_path_to_folder>.trickplay"
-- Trickplay folder cleanup finished. Deleted \<NUMBER> folders.
+```bash
+dotnet build
+dotnet test
+```
 
-The dry run logs looks a little different:
-- Starting trickplay folder cleanup (Dry Run). No folders will be deleted.
-- [Dry Run] Would delete orphaned trickplay folder: "<full_path_to_folder>.trickplay"
-- Trickplay folder cleanup (Dry Run) finished. Would have deleted \<NUMBER> folders.
+## Origin
 
-## Supported Media Extensions
+This plugin was inspired by [this community script](https://github.com/jellyfin/jellyfin/issues/12818#issuecomment-2712783498) that cleans up orphaned trickplay folders via a bash script and cron job.
 
-The plugin checks for the following extensions to verify if a media file exists:
-`.3gp`, `.asf`, `.avi`, `.divx`, `.flv`, `.hevc`, `.m2ts`, `.m4v`, `.mkv`, `.mov`, `.mp4`, `.mpeg`, `.mpg`, `.mts`, `.ogg`, `.ogv`, `.rm`, `.rmvb`, `.ts`, `.webm`, `.wmv`
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
 
 ## Special thanks
-[@S2ciOnur](https://github.com/S2ciOnur) (Logic improvments)<br />
+[@S2ciOnur](https://github.com/S2ciOnur) (Logic improvements)<br />
 [@K-Money](https://github.com/K-Money) (Testing)

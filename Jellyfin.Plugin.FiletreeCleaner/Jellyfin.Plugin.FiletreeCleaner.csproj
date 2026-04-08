@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <AssemblyName>Jellyfin.Plugin.TrickplayFolderCleaner</AssemblyName>
-    <RootNamespace>Jellyfin.Plugin.TrickplayFolderCleaner</RootNamespace>
+    <AssemblyName>Jellyfin.Plugin.FiletreeCleaner</AssemblyName>
+    <RootNamespace>Jellyfin.Plugin.FiletreeCleaner</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Nullable>enable</Nullable>
@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>Jellyfin.Plugin.TrickplayFolderCleaner.Tests</_Parameter1>
+      <_Parameter1>Jellyfin.Plugin.FiletreeCleaner.Tests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 

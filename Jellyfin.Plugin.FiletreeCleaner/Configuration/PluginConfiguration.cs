@@ -1,6 +1,6 @@
 using MediaBrowser.Model.Plugins;
 
-namespace Jellyfin.Plugin.TrickplayFolderCleaner.Configuration;
+namespace Jellyfin.Plugin.FiletreeCleaner.Configuration;
 
 /// <summary>
 /// Plugin configuration.

@@ -1,16 +1,17 @@
 ---
-name: "Trickplay Folder Cleaner"
+name: "Jellyfin Cleaner"
 guid: "2ec36e40-b27f-4f78-a0d8-6701dcd9bf0e"
-version: "1.1.0"
+version: "2.0.0"
 targetAbi: "10.11.0.0"
 framework: "net9.0"
-overview: "Removes orphaned .trickplay folders."
+overview: "Cleans up orphaned .trickplay folders and empty media folders."
 description: >
-  A Jellyfin plugin that automatically cleans up orphaned .trickplay folders.
+  A Jellyfin plugin that automatically cleans up orphaned .trickplay folders
+  and media folders that no longer contain any video files.
 
 category: "General"
 owner: "Noir1992"
 artifacts:
-  - "TrickplayFolderCleaner.dll"
+  - "Jellyfin.Plugin.FiletreeCleaner.dll"
 changelog: >-
-  Added dry-run task to verify what would be deleted
+  Added empty media folder cleanup task. Merged into single plugin with 4 scheduled tasks.

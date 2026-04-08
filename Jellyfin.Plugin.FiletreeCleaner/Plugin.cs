@@ -1,10 +1,10 @@
 using System;
-using Jellyfin.Plugin.TrickplayFolderCleaner.Configuration;
+using Jellyfin.Plugin.FiletreeCleaner.Configuration;
 using MediaBrowser.Common.Configuration;
 using MediaBrowser.Common.Plugins;
 using MediaBrowser.Model.Serialization;
 
-namespace Jellyfin.Plugin.TrickplayFolderCleaner;
+namespace Jellyfin.Plugin.FiletreeCleaner;
 
 /// <summary>
 /// The main plugin.
@@ -23,7 +23,7 @@ public class Plugin : BasePlugin<PluginConfiguration>
     }
 
     /// <inheritdoc />
-    public override string Name => "Trickplay Folder Cleaner";
+    public override string Name => "Jellyfin Cleaner";
 
     /// <inheritdoc />
     public override Guid Id => Guid.Parse("2ec36e40-b27f-4f78-a0d8-6701dcd9bf0e");

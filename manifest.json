@@ -1,17 +1,25 @@
 [
   {
     "guid": "2ec36e40-b27f-4f78-a0d8-6701dcd9bf0e",
-    "name": "Trickplay Folder Cleaner",
-    "description": "Deletes .trickplay folders that no longer have a corresponding media file.",
-    "overview": "Removes orphaned .trickplay folders.",
+    "name": "Jellyfin Cleaner",
+    "description": "Cleans up orphaned .trickplay folders and media folders that no longer contain any video files.",
+    "overview": "Cleans up orphaned .trickplay folders and empty media folders.",
     "owner": "Noir1992",
     "category": "General",
     "versions": [
       {
+        "version": "2.0.0",
+        "changelog": "Added empty media folder cleanup task. Merged into single plugin with 4 scheduled tasks.",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://github.com/Noir1992/jellyfin-trickplay-folder-cleaner/releases/download/2.0.0/FiletreeCleaner_2.0.0.zip",
+        "checksum": "",
+        "timestamp": "2026-08-04T13:17:00Z"
+      },
+      {
         "version": "1.1.0",
         "changelog": "Added dry-run task to verify what would be deleted",
         "targetAbi": "10.11.0.0",
-        "sourceUrl": "https://github.com/Noir1992/jellyfin-trickplay-folder-cleaner/releases/download/1.1.0/TrickplayFolderCleaner_1.1.0.zip",
+        "sourceUrl": "https://github.com/Noir1992/jellyfin-trickplay-folder-cleaner/releases/download/1.1.0/FiletreeCleaner_1.1.0.zip",
         "checksum": "9f331f6b59d026ab81561791752a67aa",
         "timestamp": "2026-03-15T17:58:28Z"
       },
@@ -19,7 +27,7 @@
         "version": "1.0.2",
         "changelog": "Fixed versioning",
         "targetAbi": "10.11.0.0",
-        "sourceUrl": "https://github.com/Noir1992/jellyfin-trickplay-folder-cleaner/releases/download/1.0.2/TrickplayFolderCleaner_1.0.2.zip",
+        "sourceUrl": "https://github.com/Noir1992/jellyfin-trickplay-folder-cleaner/releases/download/1.0.2/FiletreeCleaner_1.0.2.zip",
         "checksum": "39bfdac05d79c9c2363b8222e50979a7",
         "timestamp": "2026-03-14T23:17:55Z"
       },
@@ -27,7 +35,7 @@
         "version": "1.0.1",
         "changelog": "Extend the media file extensions list",
         "targetAbi": "10.11.0.0",
-        "sourceUrl": "https://github.com/Noir1992/jellyfin-trickplay-folder-cleaner/releases/download/1.0.1/TrickplayFolderCleaner_1.0.1.zip",
+        "sourceUrl": "https://github.com/Noir1992/jellyfin-trickplay-folder-cleaner/releases/download/1.0.1/FiletreeCleaner_1.0.1.zip",
         "checksum": "d5b623f446b12d99956250bedb214068",
         "timestamp": "2026-03-14T22:45:20Z"
       },
@@ -35,7 +43,7 @@
         "version": "1.0.0",
         "changelog": "Initial release",
         "targetAbi": "10.11.0.0",
-        "sourceUrl": "https://github.com/Noir1992/jellyfin-trickplay-folder-cleaner/releases/download/1.0.0/TrickplayFolderCleaner_1.0.0.zip",
+        "sourceUrl": "https://github.com/Noir1992/jellyfin-trickplay-folder-cleaner/releases/download/1.0.0/FiletreeCleaner_1.0.0.zip",
         "checksum": "a70611a47d968a42d7e2ac388429f034",
         "timestamp": "2026-03-14T22:14:18Z"
       }

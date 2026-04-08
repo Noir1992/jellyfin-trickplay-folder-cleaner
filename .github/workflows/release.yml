@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 env:
-  PLUGIN_NAME: TrickplayFolderCleaner
+  PLUGIN_NAME: FiletreeCleaner
   TARGET_ABI: "10.11.0.0"
 
 jobs:
@@ -47,9 +47,12 @@ jobs:
     - name: Restore
       run: dotnet restore
 
+    - name: Run tests
+      run: dotnet test --configuration Release --no-restore --verbosity normal
+
     - name: Publish plugin
       run: |
-        dotnet publish Jellyfin.Plugin.TrickplayFolderCleaner/Jellyfin.Plugin.TrickplayFolderCleaner.csproj \
+        dotnet publish Jellyfin.Plugin.FiletreeCleaner/Jellyfin.Plugin.FiletreeCleaner.csproj \
           -c Release \
           -o ./publish \
           -p:Version=${VERSION} \
