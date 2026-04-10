@@ -19,16 +19,23 @@ public class CleanTrickplayTask : IScheduledTask
     private readonly ILibraryManager _libraryManager;
     private readonly IFileSystem _fileSystem;
     private readonly ILogger<CleanTrickplayTask> _logger;
-    private readonly string[] _mediaExtensions =
-    [
+    private readonly HashSet<string> _mediaExtensions = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ".3g2",
         ".3gp",
         ".asf",
         ".avi",
         ".divx",
+        ".dvr-ms",
+        ".f4v",
         ".flv",
         ".hevc",
+        ".img",
+        ".iso",
         ".m2ts",
+        ".m2v",
         ".m4v",
+        ".mk3d",
         ".mkv",
         ".mov",
         ".mp4",
@@ -36,13 +43,17 @@ public class CleanTrickplayTask : IScheduledTask
         ".mpg",
         ".mts",
         ".ogg",
+        ".ogm",
         ".ogv",
+        ".rec",
         ".rm",
         ".rmvb",
         ".ts",
+        ".vob",
         ".webm",
-        ".wmv"
-    ];
+        ".wmv",
+        ".wtv"
+    };
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CleanTrickplayTask"/> class.
@@ -95,15 +106,22 @@ public class CleanTrickplayTask : IScheduledTask
 
         var libraryFolders = _libraryManager.GetVirtualFolders()
             .SelectMany(f => f.Locations)
-            .Distinct()
+            .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToList();
 
         int totalDeleted = 0;
 
-        foreach (var folder in libraryFolders.TakeWhile(_ => !cancellationToken.IsCancellationRequested))
+        for (int i = 0; i < libraryFolders.Count; i++)
         {
+            if (cancellationToken.IsCancellationRequested)
+            {
+                break;
+            }
+
+            var folder = libraryFolders[i];
             _logger.LogDebug("Scanning library folder: {Folder}", folder);
             totalDeleted += CleanDirectory(folder, dryRun, cancellationToken);
+            progress.Report((double)(i + 1) / libraryFolders.Count * 100);
         }
 
         if (dryRun)
@@ -125,6 +143,9 @@ public class CleanTrickplayTask : IScheduledTask
         {
             // Get all directories recursively
             var directories = _fileSystem.GetDirectories(path, true).ToList();
+
+            // Cache files per parent directory to avoid repeated filesystem calls
+            var fileCache = new Dictionary<string, FileSystemMetadata[]>(StringComparer.OrdinalIgnoreCase);
 
             foreach (var dir in directories.TakeWhile(_ => !cancellationToken.IsCancellationRequested))
             {
@@ -148,10 +169,15 @@ public class CleanTrickplayTask : IScheduledTask
 
                 string trickplayBaseName = dir.Name[..^".trickplay".Length];
 
-                // Check if any media file exists in parent with the same basename
-                var files = _fileSystem.GetFiles(parentPath);
+                // Check if any media file exists in parent with the same basename (cached)
+                if (!fileCache.TryGetValue(parentPath, out var files))
+                {
+                    files = _fileSystem.GetFiles(parentPath).ToArray();
+                    fileCache[parentPath] = files;
+                }
+
                 bool mediaExists = files.Any(f =>
-                    _mediaExtensions.Contains(Path.GetExtension(f.FullName).ToLowerInvariant()) &&
+                    _mediaExtensions.Contains(Path.GetExtension(f.FullName)) &&
                     Path.GetFileNameWithoutExtension(f.FullName).Equals(trickplayBaseName, StringComparison.OrdinalIgnoreCase));
 
                 if (mediaExists)
@@ -172,7 +198,7 @@ public class CleanTrickplayTask : IScheduledTask
                         Directory.Delete(dir.FullName, true);
                         deletedCount++;
                     }
-                    catch (IOException ex)
+                    catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
                     {
                         _logger.LogError(ex, "Error deleting directory {Path}", dir.FullName);
                     }

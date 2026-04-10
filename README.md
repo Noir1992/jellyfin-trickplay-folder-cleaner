@@ -4,7 +4,7 @@ A Jellyfin plugin that automatically cleans up orphaned `.trickplay` folders.
 
 ## Summary
 
-When media files are deleted, moved, renamed or replaced, their associated `.trickplay` folders (used for scrubbing/preview thumbnails) are not deleted by Jellyfin and consum disk space. This plugin adds a scheduled task that scans your libraries and deletes these orphaned folders.
+When media files are deleted, moved, renamed or replaced, their associated `.trickplay` folders (used for scrubbing/preview thumbnails) are not deleted by Jellyfin and consume disk space. This plugin adds a scheduled task that scans your libraries and deletes these orphaned folders.
 
 ## Features
 
@@ -52,8 +52,8 @@ The dry run logs looks a little different:
 ## Supported Media Extensions
 
 The plugin checks for the following extensions to verify if a media file exists:
-`.3gp`, `.asf`, `.avi`, `.divx`, `.flv`, `.hevc`, `.m2ts`, `.m4v`, `.mkv`, `.mov`, `.mp4`, `.mpeg`, `.mpg`, `.mts`, `.ogg`, `.ogv`, `.rm`, `.rmvb`, `.ts`, `.webm`, `.wmv`
+`.3g2`, `.3gp`, `.asf`, `.avi`, `.divx`, `.dvr-ms`, `.f4v`, `.flv`, `.hevc`, `.img`, `.iso`, `.m2ts`, `.m2v`, `.m4v`, `.mk3d`, `.mkv`, `.mov`, `.mp4`, `.mpeg`, `.mpg`, `.mts`, `.ogg`, `.ogm`, `.ogv`, `.rec`, `.rm`, `.rmvb`, `.ts`, `.vob`, `.webm`, `.wmv`, `.wtv`
 
 ## Special thanks
-[@S2ciOnur](https://github.com/S2ciOnur) (Logic improvments)<br />
+[@S2ciOnur](https://github.com/S2ciOnur) (Logic improvements)<br />
 [@K-Money](https://github.com/K-Money) (Testing)
