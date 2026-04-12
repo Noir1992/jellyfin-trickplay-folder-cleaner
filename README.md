@@ -1,3 +1,6 @@
+> [!important]
+> This project is deprecated and was included in the [Jellyfin Helper](https://github.com/JellyPlugins/jellyfin-helper) plugin. It will continue to work but future fixes and features will only be made available in the new Jellyfin Helper plugin.
+
 # Trickplay Folder Cleaner
 
 A Jellyfin plugin that automatically cleans up orphaned `.trickplay` folders.
